@@ -1,0 +1,19 @@
+{
+  "HOME": {
+    "TITLE": "WareHouse System",
+    "SELECT": "Language"
+  },
+  "MENU": {
+    "HOME": "Home",
+    "ABOUT": "About",
+    "ITEM": "Item",
+    "RUKU": "Stock In",
+    "CHUKU": "Stock Out",
+    "SUMMARY": "Summary",
+    "CHAT": "Chat",
+    "LOGOUT": "Log Out",
+    "LOGIN": "Login",
+    "SIGNUP": "Sign Up" 
+  }
+
+}

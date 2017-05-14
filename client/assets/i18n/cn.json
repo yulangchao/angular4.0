@@ -1,0 +1,18 @@
+{
+  "HOME": {
+    "TITLE": "仓库系统",
+    "SELECT": "语言"
+  },
+  "MENU": {
+    "HOME": "主页",
+    "ABOUT": "关于",
+    "ITEM": "物品",
+    "RUKU": "入库",
+    "CHUKU": "出库",
+    "SUMMARY": "摘要",
+    "CHAT": "聊天",
+    "LOGOUT": "登出",
+    "LOGIN": "登录",
+    "SIGNUP": "注册"    
+  }
+}

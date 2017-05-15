@@ -4,13 +4,13 @@ import {ChukuService} from './chuku.service';
 
 import {ItemComponent} from '../items/item.component';
 // Import NgFor directive
-
+import { ToastComponent } from '../shared/toast/toast.component';
 import {Router} from '@angular/router';
 // Create metadata with the `@Component` decorator
 @Component({
     // HTML tag for specifying this component
     selector: 'chuku',
-    templateUrl: './chuku.html'
+    templateUrl: './chuku.component.html'
 
 })
 export class ChukuComponent {
@@ -27,12 +27,14 @@ export class ChukuComponent {
   };
   private shows: number = 5;
   private selected: number = 3;
-  private chukus: Array<ChukuComponent> = [];
-  private items: Array<ItemComponent> = [];
+  private chukus: Array<any> = [];
+  private items: Array<any> = [];
   private array: Array<any> = [];
   private count: number = 0;
   private a = 0;
-  constructor(private router: Router, public chukuService: ChukuService) {
+  private filter: string = '';
+  private isLoading: boolean = true;
+  constructor(private router: Router, public chukuService: ChukuService, public toast: ToastComponent) {
     console.log('Chuku constructor go!');
       if (localStorage.getItem('token')) {
           console.log(JSON.parse(localStorage.getItem('token')));
@@ -49,15 +51,9 @@ export class ChukuComponent {
             this.chukus = res;
             for (let chuku of res){
             this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
-            }
-            // Reset `chuku` input
-            this.chukuData.text = '';
-            this.chukuData.name = '';
-            this.chukuData.price = null;
-            this.chukuData.number = 0;
-            this.chukuData.user = '';
-            this.chukuData.kuaidi = '';
-            this.chukuData.date = '';
+          }
+          this.isLoading = false;
+
         });
 
       chukuService.getAllitem()
@@ -80,14 +76,11 @@ export class ChukuComponent {
 
           // Populate our `chuku` array with the `response` data
           this.chukus = res;
-          // Reset `chuku` input
-          this.chukuData.text = '';
+          this.toast.setMessage('Stock Out is added successfully.', 'success');
           this.chukuData.name = '';
           this.chukuData.price = null;
           this.chukuData.number = 0;
-          this.chukuData.user = '';
           this.chukuData.kuaidi = '';
-          this.chukuData.date = '';
         });
 
     }
@@ -101,12 +94,17 @@ export class ChukuComponent {
 
           // Populate our `chuku` array with the `response` data
           this.chukus = res;
+          this.toast.setMessage('Stock Out is deleted successfully.', 'success');
         });
     }
   }
 
   isadmin(){
+    if(localStorage.getItem('token')){
     return (JSON.parse(localStorage.getItem('token')).role === "admin");
+    }else{
+      return false;
+    }
   }
 
   updateChuku(chuku) {
@@ -115,18 +113,27 @@ export class ChukuComponent {
       this.chukuService.updateChuku(chuku._id,this.chukuData)
         .subscribe((res) => {
              this.chukus[this.chukus.indexOf(chuku)] = res;
+             this.toast.setMessage('Stock Out is edited successfully.', 'success');
         });
     }
   }
 
    updateForm(chuku){
        this.chukuData.text = chuku.text;
-       this.chukuData.name = chuku.name;
+       this.chukuData.name = this.getItemPrice(chuku.name)+'+'+chuku.name;
        this.chukuData.price = chuku.price;
        this.chukuData.number = chuku.number;
        this.chukuData.kuaidi = chuku.kuaidi;
        this.chukuData.date = chuku.date;
        this.chukuData.user = chuku.user;
+  }
+
+  getItemPrice(name){
+       for (let item of this.items){
+         if (item.name == name){
+           return item.price;
+         }
+       }
   }
 
 }

@@ -4,7 +4,7 @@
 
     <div class="col-md-12">
 
-      <h4>Datatable</h4>
+      <h4>Summary</h4>
       <div class="table table-responsive">
 
         <table id="mytable" class="table table-bordered table-hover table-striped">
@@ -32,7 +32,7 @@
 
       </div>
 
-  
+  <div class="filter-input"><p> Filter by Name:</p> <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter"></div>
       <div class="table table-responsive">
 
         <table id="mytable" class="table table-bordered table-hover table-striped">
@@ -42,8 +42,7 @@
             <th>Number</th>
           </thead>
           <thead>
-            <th>Filter: <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter"></th>
-            <th>Filter: <input name="filter" type="text" class="form-control input-md" [(ngModel)]="filter"></th>
+            <th colspan="2"></th>
           </thead>
           <tbody *ngFor="let item of summarys">
             <tr *ngIf="item.name.indexOf(filter) >= 0">

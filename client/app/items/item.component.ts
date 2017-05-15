@@ -29,6 +29,7 @@ export class ItemComponent {
   private chukus: Array<any> = [];
   private arrays: Array<number> = [];
   private clicked: boolean = false;
+  private isLoading: boolean = true;
   constructor(private router: Router, public itemService: ItemService, public toast: ToastComponent) {
     console.log('Item constructor go!');
       if (localStorage.getItem('token')) {
@@ -45,7 +46,7 @@ export class ItemComponent {
   getAll(){
           this.itemService.getAll().subscribe((res) => {
                       this.items = res;
-
+                      this.isLoading = false;
                       this.itemData.text = '';
                       this.itemData.name = '';
                       this.itemData.price = 0;
@@ -63,7 +64,7 @@ export class ItemComponent {
 
             // Populate our `item` array with the `response` data
             this.items = res;
-            this.toast.setMessage('item added successfully.', 'success');
+            this.toast.setMessage('Product is added successfully.', 'success');
             // Reset `item` input
             this.itemData.text = '';
             this.itemData.name = '';
@@ -82,6 +83,7 @@ export class ItemComponent {
 
               // Populate our `item` array with the `response` data
               this.items = res;
+              this.toast.setMessage('Product is deleted successfully.', 'success');
           });
       }
   }
@@ -93,7 +95,7 @@ export class ItemComponent {
         .subscribe((res) => {
           
              this.items[this.items.indexOf(item)] = res;
-             this.toast.setMessage('item edited successfully.', 'success');
+             this.toast.setMessage('Product is edited successfully.', 'success');
         });
     }
   }

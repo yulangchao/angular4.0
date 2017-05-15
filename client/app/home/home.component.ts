@@ -87,5 +87,12 @@ export class HomeComponent implements OnInit {
       );
     }
   }
+  islog(){
+    if (localStorage.getItem('token')){
+      return true;
+    }else{
+      return false;
+    }
 
+  }
 }

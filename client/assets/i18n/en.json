@@ -6,7 +6,7 @@
   "MENU": {
     "HOME": "Home",
     "ABOUT": "About",
-    "ITEM": "Item",
+    "ITEM": "Product",
     "RUKU": "Stock In",
     "CHUKU": "Stock Out",
     "SUMMARY": "Summary",
@@ -14,6 +14,19 @@
     "LOGOUT": "Log Out",
     "LOGIN": "Login",
     "SIGNUP": "Sign Up" 
+  },
+  "ITEM": {
+    "TITLE": "Product Management",
+    "DISPLAY": "Display",
+    "ADD": "Add Product",
+    "FILTER": "Filter by Name",
+    "NAME": "Product Name",
+    "PRICE": "Price",
+    "SALEPRICE": "Sale Price",
+    "NOTE": "Note",
+    "EDIT": "Edit",
+    "DELETE": "Delete" 
   }
+  
 
 }

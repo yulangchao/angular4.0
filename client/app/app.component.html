@@ -12,23 +12,23 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a routerLink="/" routerLinkActive="active">{{ 'MENU.HOME' | translate }}</a>
+                    <li routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/" >{{ 'MENU.HOME' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate">
-                        <a routerLink="/item" routerLinkActive="active">{{ 'MENU.ITEM' | translate }}</a>
+                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/item" >{{ 'MENU.ITEM' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate">
-                        <a routerLink="/ruku" routerLinkActive="active">{{ 'MENU.RUKU' | translate }}</a>
+                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/ruku" >{{ 'MENU.RUKU' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate">
-                        <a routerLink="/chuku" routerLinkActive="active">{{ 'MENU.CHUKU' | translate }}</a>
+                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/chuku" >{{ 'MENU.CHUKU' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate">
-                        <a routerLink="/summary" routerLinkActive="active">{{ 'MENU.SUMMARY' | translate }}</a>
+                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/summary" >{{ 'MENU.SUMMARY' | translate }}</a>
                     </li>
-                    <li *ngIf="isAuthenticate">
-                        <a routerLink="/chat" routerLinkActive="active">{{ 'MENU.CHAT' | translate }}</a>
+                    <li *ngIf="isAuthenticate" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="/chat" >{{ 'MENU.CHAT' | translate }}</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

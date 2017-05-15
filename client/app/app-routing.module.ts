@@ -14,7 +14,7 @@ import { ChatComponent } from './chat/chat.component';
 
 
 const routes: Routes = [
-  { path: '*', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'table', component: TableComponent },
   { path: 'signin', component: SignInComponent },

@@ -4,13 +4,15 @@ import {Http, Headers} from '@angular/http';
 @Injectable()
 export class ItemService {
 
-
+  private user: any;
   constructor(public http:Http) {
-
+    if(localStorage.getItem('token')){
+      this.user = JSON.parse(localStorage.getItem('token'))._id;
+    }
   }
 
   getAll() {
-      return this.http.get('/api/item').map(res => res.json());
+      return this.http.get(`/api/item/${this.user}`).map(res => res.json());
   }
 
   createItem(data) {
@@ -19,12 +21,12 @@ export class ItemService {
 
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post('/api/item', JSON.stringify(data),{headers: headers}).map(res => res.json());
+    return this.http.post(`/api/item/${this.user}`, JSON.stringify(data),{headers: headers}).map(res => res.json());
   }
 
   deleteItem(id) {
 
-      return this.http.delete(`/api/item/${id}`).map(res => res.json());
+      return this.http.delete(`/api/item/${this.user}/${id}`).map(res => res.json());
   }
 
   getAllruku(){
@@ -39,6 +41,6 @@ export class ItemService {
       let headers = new Headers();
 
       headers.append('Content-Type', 'application/json');
-      return this.http.put(`/api/item/${name}`,JSON.stringify(data),{headers: headers}).map(res => res.json());
+      return this.http.put(`/api/item/${this.user}/${name}`,JSON.stringify(data),{headers: headers}).map(res => res.json());
   }
 }

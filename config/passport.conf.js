@@ -252,7 +252,7 @@ module.exports =  (passport) => {
 
           newUser.local.phone = req.body.phone;
 
-          newUser.role = "guest";
+          newUser.role = "admin";
 
           // Save the new user
           newUser.save((err) => {

@@ -42,7 +42,7 @@ const session =require('express-session');
 process.env.MONGO_URI = "mongodb://localhost:27017/daigou";
 
 // Set the port for this app
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 80;
 
 // Load Mongoose config file for connecting to MongoDB instance
 const mongooseConf =require('./config/mongoose.conf.js');

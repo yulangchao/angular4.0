@@ -26,7 +26,7 @@ module.exports = (app, router) => {
 
   // Define routes for the ruku ruku API
 
-  router.route('/ruku')
+  router.route('/ruku/:localuser')
 
     // ### Create a ruku ruku
 
@@ -43,7 +43,8 @@ module.exports = (app, router) => {
         text : req.body.text,
         user : req.body.user,
         location : req.body.location,
-        date : req.body.date
+        date : req.body.date,
+        localuser: req.params.localuser
 
       }, (err, ruku) => {
 
@@ -53,7 +54,9 @@ module.exports = (app, router) => {
         // DEBUG
         console.log(`Ruku created: ${ruku}`);
 
-        Ruku.find((err, rukus) => {
+        Ruku.find({
+          localuser: req.params.localuser
+        },(err, rukus) => {
           if(err)
             res.send(err);
 
@@ -68,7 +71,9 @@ module.exports = (app, router) => {
     .get((req, res) => {
 
       // Use mongoose to get all ruku rukus in the database
-      Ruku.find((err, ruku) => {
+      Ruku.find({
+         localuser: req.params.localuser
+      },(err, ruku) => {
 
         if(err)
           res.send(err);
@@ -78,7 +83,7 @@ module.exports = (app, router) => {
       });
     });
 
-  router.route('/ruku/:ruku_id')
+  router.route('/ruku/:localuser/:ruku_id')
 
     // ### Get a ruku ruku by ID
 
@@ -86,7 +91,12 @@ module.exports = (app, router) => {
     .get((req, res) => {
 
       // Use mongoose to a single ruku ruku by id in the database
-      Ruku.findOne(req.params.ruku_id, (err, ruku) => {
+      Ruku.findOne({
+        $and : [
+            { _id: req.params.ruku_id },
+            { localuser: req.params.localuser }
+        ]
+        }, (err, ruku) => {
 
         if(err)
           res.send(err);
@@ -158,7 +168,9 @@ module.exports = (app, router) => {
 
         console.log('Ruku successfully deleted!');
 
-        Ruku.find((err, rukus) => {
+        Ruku.find({
+          localuser: req.params.localuser
+        },(err, rukus) => {
           if(err)
             res.send(err);
 

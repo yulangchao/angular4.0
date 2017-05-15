@@ -22,7 +22,8 @@ let chukuSchema = new mongoose.Schema({
   date: String,
   kuaidi: String,
   number: Number,
-  text: String
+  text: String,
+  localuser: String
 });
 
 // Expose the model so that it can be imported and used in

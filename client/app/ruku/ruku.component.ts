@@ -37,12 +37,7 @@ export class RukuComponent {
   constructor(private router: Router, public rukuService: RukuService, public toast: ToastComponent) {
     console.log('Ruku constructor go!');
       if (localStorage.getItem('token')) {
-          console.log(JSON.parse(localStorage.getItem('token')));
-      //this.rukus = [];
-          rukuService.getAll()
-            // `Rxjs`; we subscribe to the response
-            .subscribe((res) => {
-
+          rukuService.getAll().subscribe((res) => {
                 // Populate our `ruku` array with the `response` data
                 this.rukus = res;
                 for (let ruku of res){
@@ -51,19 +46,13 @@ export class RukuComponent {
                 this.isLoading = false;
             });
 
-          rukuService.getAllitem()
-            // `Rxjs`; we subscribe to the response
-            .subscribe((res) => {
-
+          rukuService.getAllitem().subscribe((res) => {
                 // Populate our `ruku` array with the `response` data
                 this.items = res;
-
-
                 // Reset `ruku` input
             });
       } else {
-
-        router.navigate(['Index']);
+        router.navigate(['']);
       }
   }
 

@@ -26,11 +26,11 @@ export class HomeComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.getCats();
+    // this.getCats();
 
-    this.addCatForm = this.formBuilder.group({
-      name: this.name
-    });
+    // this.addCatForm = this.formBuilder.group({
+    //   name: this.name
+    // });
   }
 
   getCats() {

@@ -20,7 +20,8 @@ let itemSchema = new mongoose.Schema({
   price: Number,
   saleprice: Number,
   number: Number,
-  text: String
+  text: String,
+  user: String
 });
 
 // Expose the model so that it can be imported and used in

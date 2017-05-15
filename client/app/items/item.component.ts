@@ -33,7 +33,7 @@ export class ItemComponent {
   constructor(private router: Router, public itemService: ItemService, public toast: ToastComponent) {
     console.log('Item constructor go!');
       if (localStorage.getItem('token')) {
-          console.log(JSON.parse(localStorage.getItem('token')));
+
           this.getAll();
       } else {
 
@@ -58,10 +58,9 @@ export class ItemComponent {
 
   createItem() {
       if (JSON.parse(localStorage.getItem('token')).role === "admin") {
-        console.log("111");
       this.itemService.createItem(this.itemData)
-        .subscribe((res) => {
-
+        .subscribe(
+          res => {
             // Populate our `item` array with the `response` data
             this.items = res;
             this.toast.setMessage('Product is added successfully.', 'success');
@@ -71,7 +70,9 @@ export class ItemComponent {
             this.itemData.price = 0;
             this.itemData.number = 0;
             this.itemData.saleprice = 0;
-        });
+          },
+          error => this.toast.setMessage(error._body+'', 'danger')
+        );
       }
   }
 
@@ -79,12 +80,15 @@ export class ItemComponent {
       if (JSON.parse(localStorage.getItem('token')).role === "admin") {
 
         this.itemService.deleteItem(id)
-          .subscribe((res) => {
+          .subscribe(
+            res => {
 
               // Populate our `item` array with the `response` data
               this.items = res;
               this.toast.setMessage('Product is deleted successfully.', 'success');
-          });
+            },
+            error => console.log(error._body)
+          );
       }
   }
 
@@ -93,7 +97,7 @@ export class ItemComponent {
       console.log(this.itemData);
       this.itemService.updateItem(item._id,this.itemData)
         .subscribe((res) => {
-          
+
              this.items[this.items.indexOf(item)] = res;
              this.toast.setMessage('Product is edited successfully.', 'success');
         });

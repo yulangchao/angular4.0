@@ -16,12 +16,15 @@ export class ChukuService {
   // Reference: https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md#3-types
   // Here we intend the constructor function to be called with the
   // `Http` parameter
+  private user: any;
   constructor(public http:Http) {
-
+    if(localStorage.getItem('token')){
+      this.user = JSON.parse(localStorage.getItem('token'))._id;
+    }
   }
 
   getAll() {
-      return this.http.get('/api/chuku')
+      return this.http.get(`/api/chuku/${this.user}`)
           // map the `HTTP` response from `raw` to `JSON` format
           // using `RxJs`
           // Reference: https://github.com/Reactive-Extensions/RxJS
@@ -34,20 +37,20 @@ export class ChukuService {
 
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post('/api/chuku', JSON.stringify(data),
+    return this.http.post(`/api/chuku/${this.user}`, JSON.stringify(data),
           {headers: headers})
         .map(res => res.json());
   }
 
   deleteChuku(id) {
 
-      return this.http.delete(`/api/chuku/${id}`)
+      return this.http.delete(`/api/chuku/${this.user}/${id}`)
           .map(res => res.json());
   }
 
 
   getAllitem() {
-      return this.http.get('/api/item')
+      return this.http.get(`/api/item/${this.user}`)
           // map the `HTTP` response from `raw` to `JSON` format
           // using `RxJs`
           // Reference: https://github.com/Reactive-Extensions/RxJS
@@ -56,7 +59,7 @@ export class ChukuService {
 
   getItem(name) {
 
-    return this.http.get(`/api/item/${name}`)
+    return this.http.get(`/api/item/${this.user}/${name}`)
       .map(res => res.json());
   }
 
@@ -64,7 +67,7 @@ export class ChukuService {
     let headers = new Headers();
 
     headers.append('Content-Type', 'application/json');
-    return this.http.put(`/api/chuku/${id}`,JSON.stringify(data),{headers: headers})
+    return this.http.put(`/api/chuku/${this.user}/${id}`,JSON.stringify(data),{headers: headers})
       .map(res => res.json());
   }
 }

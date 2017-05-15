@@ -37,35 +37,24 @@ export class ChukuComponent {
   constructor(private router: Router, public chukuService: ChukuService, public toast: ToastComponent) {
     console.log('Chuku constructor go!');
       if (localStorage.getItem('token')) {
-          console.log(JSON.parse(localStorage.getItem('token')));
+        chukuService.getAll().subscribe((res) => {
+              // Populate our `chuku` array with the `response` data
+              this.chukus = res;
+              for (let chuku of res){
+                 this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
+              }
+            this.isLoading = false;
+
+          });
+
+        chukuService.getAllitem().subscribe((res) => {
+              // Populate our `chuku` array with the `response` data
+              this.items = res;
+        });
+
       } else {
-
-        router.navigate(['Index']);
+        router.navigate(['']);
       }
-      //this.chukus = [];
-      chukuService.getAll()
-        // `Rxjs`; we subscribe to the response
-        .subscribe((res) => {
-
-            // Populate our `chuku` array with the `response` data
-            this.chukus = res;
-            for (let chuku of res){
-            this.a += chuku.price * chuku.number - ((chuku.kuaidi==="") ? 0 : parseInt(chuku.kuaidi));
-          }
-          this.isLoading = false;
-
-        });
-
-      chukuService.getAllitem()
-        // `Rxjs`; we subscribe to the response
-        .subscribe((res) => {
-
-            // Populate our `chuku` array with the `response` data
-            this.items = res;
-
-
-            // Reset `chuku` input
-        });
   }
 
   createChuku() {

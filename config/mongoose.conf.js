@@ -45,7 +45,7 @@ module.exports = function(mongoose) {
 
   // Connect to our MongoDB database using the MongoDB
   // connection URI from our predefined environment variable
-  mongoose.connect('mongodb://localhost:27017/66666', (error) => {
+  mongoose.connect('mongodb://localhost:27017/beta', (error) => {
 
     if (error)
       throw error;

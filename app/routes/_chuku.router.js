@@ -26,7 +26,7 @@ module.exports = (app, router) => {
 
   // Define routes for the chuku chuku API
 
-  router.route('/chuku')
+  router.route('/chuku/:localuser')
 
     // ### Create a chuku chuku
 
@@ -43,7 +43,8 @@ module.exports = (app, router) => {
         text : req.body.text,
         user : req.body.user,
         kuaidi : req.body.kuaidi,
-        date : req.body.date
+        date : req.body.date,
+        localuser: req.params.localuser
 
       }, (err, chuku) => {
 
@@ -53,7 +54,9 @@ module.exports = (app, router) => {
         // DEBUG
         console.log(`Chuku created: ${chuku}`);
 
-        Chuku.find((err, chukus) => {
+        Chuku.find({
+          localuser: req.params.localuser
+        },(err, chukus) => {
           if(err)
             res.send(err);
 
@@ -68,7 +71,9 @@ module.exports = (app, router) => {
     .get((req, res) => {
 
       // Use mongoose to get all chuku chukus in the database
-      Chuku.find((err, chuku) => {
+      Chuku.find({
+          localuser: req.params.localuser
+        },(err, chuku) => {
 
         if(err)
           res.send(err);
@@ -78,7 +83,7 @@ module.exports = (app, router) => {
       });
     });
 
-  router.route('/chuku/:chuku_id')
+  router.route('/chuku/:localuser/:chuku_id')
 
     // ### Get a chuku chuku by ID
 
@@ -86,7 +91,12 @@ module.exports = (app, router) => {
     .get((req, res) => {
 
       // Use mongoose to a single chuku chuku by id in the database
-      Chuku.findOne(req.params.chuku_id, (err, chuku) => {
+      Chuku.findOne({
+        $and : [
+            { _id: req.params.chuku_id },
+            { localuser: req.params.localuser }
+        ]
+        }, (err, chuku) => {
 
         if(err)
           res.send(err);
@@ -158,7 +168,9 @@ module.exports = (app, router) => {
 
         console.log('Chuku successfully deleted!');
 
-        Chuku.find((err, chukus) => {
+        Chuku.find({
+          localuser: req.params.localuser
+        },(err, chukus) => {
           if(err)
             res.send(err);
 

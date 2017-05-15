@@ -34,14 +34,8 @@ export class SummaryComponent {
   constructor(private router: Router, public summaryService: SummaryService) {
     console.log('Summary constructor go!');
       if (localStorage.getItem('token')) {
-          console.log(JSON.parse(localStorage.getItem('token')));
-      } else {
 
-        router.navigate(['Index']);
-      }
-          summaryService.getAllruku()
-
-          .subscribe((res) => {
+          summaryService.getAllruku().subscribe((res) => {
             // Populate our `summary` array with the `response` data
             this.rukus = res;
             for (let ruku of this.rukus) {
@@ -51,9 +45,7 @@ export class SummaryComponent {
               this.arrays[ruku.name] = this.arrays[ruku.name] + ruku.number;
               this.outcome += ruku.number * ruku.price;
             }
-            summaryService.getAllchuku()
-              .subscribe((res) => {
-
+            summaryService.getAllchuku().subscribe((res) => {
                 // Populate our `summary` array with the `response` data
                 this.chukus = res;
                 for (let chuku of res) {
@@ -66,12 +58,11 @@ export class SummaryComponent {
                 for(let i in this.arrays){
                      this.summarys.push({name:i, number : this.arrays[i]});
                 }
-               console.log(this.arrays);
               });
-
           });
-
-
+      } else {
+        router.navigate(['']);
+      }
   }
 
 }

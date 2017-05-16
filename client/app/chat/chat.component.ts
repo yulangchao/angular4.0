@@ -39,11 +39,10 @@ export class ChatComponent {
                     this.chatData.text = '';
                 });
 
-
             let t = setInterval(() => {
 
 
-                if(window.location.hash === "#/chat"){
+                if(window.location.pathname === "/chat"){
                     chatService.getAll()
                     // `Rxjs`; we subscribe to the response
                         .subscribe((res) => {
